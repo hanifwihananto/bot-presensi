@@ -1,38 +1,57 @@
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
+import pyautogui
+import time
 
-chrome_options = Options()
-a = webdriver.Chrome(executable_path = "C:\Installer Apps\Selenium Drivers\Chrome\chromedriver.exe", chrome_options = chrome_options)
+browser = webdriver.Chrome("C:/Installer Apps/Selenium Drivers/Chrome/chromedriver.exe")
 
 # ===== Link Presensi =====
-a.get("https://docs.google.com/forms/d/e/1FAIpQLSecTBVViKVBctd5Hh80FVTVHjEN8tUS8C9brwhesv0qbcfktQ/viewform?usp=sf_link")
+browser.get("https://docs.google.com/forms/d/e/1FAIpQLSdvQFGVj8OYYAlrWnwkdskpI-1yI2SsM3q4WFz3xPtPtdWwqw/viewform")
 
-# ===== Nama ===== 
-# full xpath
-a.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input").send_keys("MUHAMMAD HANIF ABID WIHANANTO")
+# ===== Nama =====
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input").send_keys("MUHAMMAD HANIF ABID WIHANANTO")
 
 # ===== Nomor Absen =====
-# full xpath
-a.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input").send_keys("21")
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input").send_keys("21")
 
-# ===== Kelas ===== 
-# class name
-a.find_element_by_class_name("quantumWizMenuPaperselectOptionList").click()
+# ===== Kelas =====
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]").click()
 
-# full xpath
-# a.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[1]/div[1]/div[1]").click()
-
-# ===== XI =====
-# full xpath
-a.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[3]/div/div/div[2]/div/div[2]/div[4]").click()
-
-# selector
-# a.find_element_by_css_selector("#mG61Hd > div.freebirdFormviewerViewFormCard.exportFormCard > div > div.freebirdFormviewerViewItemList > div:nth-child(3) > div > div > div.freebirdFormviewerComponentsQuestionSelectRoot > div > div.exportSelectPopup.quantumWizMenuPaperselectPopup.appsMaterialWizMenuPaperselectPopup > div.quantumWizMenuPaperselectOption.appsMaterialWizMenuPaperselectOption.freebirdThemedSelectOptionDarkerDisabled.exportOption.isSelected").click()
+# XI 
+index_number = 2
+time.sleep(1)
+for _ in range(index_number):
+	pyautogui.keyDown("down"); pyautogui.keyUp("down")
+pyautogui.keyDown("enter"); pyautogui.keyUp("enter")
 
 # ===== Tanggal =====
-# full xpath
-a.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input")
+info_waktu = time.localtime()
+tgl = info_waktu[2]
+bln = info_waktu[1]
+thn = info_waktu[0]
+
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input").send_keys(tgl)
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input").send_keys(bln)
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[4]/div/div/div[2]/div/div/div[2]/div[1]/div/div[1]/input").send_keys(thn)
 
 # ===== Keterangan =====
-# full xpath
-a.find_element_by_css_selector("#i22 > div.appsMaterialWizToggleRadiogroupRadioButtonContainer > div").click()
+radio_button = browser.find_elements_by_class_name("appsMaterialWizToggleRadiogroupEl")
+for radio in radio_button:
+	if radio.get_attribute("data-value").lower() == "hadir":
+		radio.click()
+
+# ===== Berikutnya =====
+berikutnya = browser.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div/span/span')
+berikutnya.click()
+
+# ===== Kelas =====
+browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div[1]/div[1]").click()
+
+# XI MIPA 8
+index_number1 = 8
+time.sleep(1)
+for _ in range(index_number1):
+	pyautogui.keyDown("down"); pyautogui.keyUp("down")
+pyautogui.keyDown("enter"); pyautogui.keyUp("enter")
+
+# Kirim 
+kirim = browser.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div[2]/span/span').click()
