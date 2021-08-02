@@ -5,7 +5,7 @@ import time
 browser = webdriver.Chrome("C:/Installer Apps/Selenium Drivers/Chrome/chromedriver.exe")
 
 # ===== Link Presensi =====
-browser.get("https://docs.google.com/forms/d/e/1FAIpQLSdvQFGVj8OYYAlrWnwkdskpI-1yI2SsM3q4WFz3xPtPtdWwqw/viewform")
+browser.get("https://docs.google.com/forms/d/e/1FAIpQLSdkR1H59J2RA9zCADZfS9kkiWTBrf3gPMjd9Ti_byDA6CCFKg/formResponse")
 
 # ===== Nama =====
 browser.find_element_by_xpath("/html/body/div/div[2]/form/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input").send_keys("MUHAMMAD HANIF ABID WIHANANTO")
